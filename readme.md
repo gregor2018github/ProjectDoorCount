@@ -1,0 +1,7 @@
+We are in need of a simple mobile application. Phone is google phone 6. Android studio is already installed on this pc. The application shall simply measure the occupation rate of 6 gates over a longer period of time with several measurement points. Everytime when I encounter the gates, we will open the application and enter information of which gates are occupied. The gates should be 6 squares, displayed next to each other, they tell their number of the square. When you tip one of them they will change color to make it obvious that they are activated. At the bottom you have a button to confirm (save data). Basically it is only 6 boolean values combined with the datetime (taken by the datetime of the phone).
+
+The app also must have a second tab (aside from the data entry tab). This would be the statistics tab. I need to see interesting pattern about the occupation and the development over time. Also an analysis of the points in time of the measuring would be interesting. Think of good visualizations and UIs to dive into the data intuitively. 
+
+The saving of the data can be as simple as possible. Basically I am fine with storing it as one json or something alike. Data will only be used locally on the phone within the application. Simply write and read, nothing fancy necessary.
+
+The app must work properly in the android environment and have a professional layout. But do not overcomplicate the structure, the scope will not rise far above what is mentioned here.
