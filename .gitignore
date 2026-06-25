@@ -1,1 +1,16 @@
-ClAUDE.md
+CLAUDE.md
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Android / Gradle
+DoorCountApp/.gradle/
+DoorCountApp/build/
+DoorCountApp/app/build/
+DoorCountApp/local.properties
+DoorCountApp/.idea/
+*.apk
+*.aab
+*.iml
