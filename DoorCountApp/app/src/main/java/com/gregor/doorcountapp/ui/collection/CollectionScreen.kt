@@ -14,7 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +34,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun CollectionScreen(vm: CollectionViewModel = viewModel()) {
+fun CollectionScreen(
+    onOpenHistory: () -> Unit = {},
+    vm: CollectionViewModel = viewModel()
+) {
     val gateStates by vm.gateStates.collectAsState()
     val savedMessage by vm.savedMessage.collectAsState()
 
@@ -47,11 +54,21 @@ fun CollectionScreen(vm: CollectionViewModel = viewModel()) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Gate Occupancy",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Gate Occupancy",
+                style = MaterialTheme.typography.headlineMedium
+            )
+            IconButton(onClick = onOpenHistory) {
+                Icon(Icons.Default.History, contentDescription = "Edit History")
+            }
+        }
 
         Column(
             modifier = Modifier

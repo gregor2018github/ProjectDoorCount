@@ -22,6 +22,10 @@ class MeasurementRepository(context: Context) {
     fun append(measurement: Measurement) {
         val list = load().toMutableList()
         list.add(measurement)
+        save(list)
+    }
+
+    fun save(list: List<Measurement>) {
         file.writeText(gson.toJson(list))
     }
 }
