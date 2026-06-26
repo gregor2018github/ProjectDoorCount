@@ -1,7 +1,59 @@
-We are in need of a simple mobile application. Phone is google phone 6. Android studio is already installed on this pc. The application shall simply measure the occupation rate of 6 gates over a longer period of time with several measurement points. Everytime when I encounter the gates, we will open the application and enter information of which gates are occupied. The gates should be 6 squares, displayed next to each other, they tell their number of the square. When you tip one of them they will change color to make it obvious that they are activated. At the bottom you have a button to confirm (save data). Basically it is only 6 boolean values combined with the datetime (taken by the datetime of the phone).
+# DoorCount
 
-The app also must have a second tab (aside from the data entry tab). This would be the statistics tab. I need to see interesting pattern about the occupation and the development over time. Also an analysis of the points in time of the measuring would be interesting. Think of good visualizations and UIs to dive into the data intuitively. 
+Android app for tracking gate occupancy over time. Each visit, you record which of 6 gates are occupied; the app stores timestamped snapshots and visualises the patterns.
 
-The saving of the data can be as simple as possible. Basically I am fine with storing it as one json or something alike. Data will only be used locally on the phone within the application. Simply write and read, nothing fancy necessary.
+## Features
 
-The app must work properly in the android environment and have a professional layout. But do not overcomplicate the structure, the scope will not rise far above what is mentioned here.
+**Entry tab**
+- Six toggle buttons (one per gate) that change colour when active
+- Save button records the current state with the phone's timestamp
+- History button lists all past entries — tap to edit gate states or delete a record
+
+**Statistics tab**
+- Gate occupation rate — horizontal bar chart per gate, tap a bar for the exact count
+- Measurements per day — last 30 days
+- Measurement time distribution — how often you record by hour of day
+- Average occupation rate by hour — which hours tend to have more gates occupied
+- Overall occupation — single large percentage with raw fraction (e.g. 36/60)
+
+All charts have clickable bars that highlight the selection and show the value inline.
+
+## Tech stack
+
+| Layer | Choice |
+|---|---|
+| Language | Kotlin |
+| UI | Jetpack Compose + Material 3 |
+| State | ViewModel + StateFlow |
+| Storage | JSON file in internal storage via Gson |
+| Min SDK | 26 (Android 8.0) |
+| Target device | Google Pixel 6 |
+
+## Data format
+
+Each record stored in `measurements.json` (internal app storage):
+
+```json
+{"timestamp": "2026-06-26T14:30:00", "gates": [true, false, true, false, false, true]}
+```
+
+The file is a JSON array of these objects, appended on every save.
+
+## Build & run
+
+Open `DoorCountApp/` in Android Studio (not the repo root). Android Studio will sync Gradle automatically.
+
+```bash
+# Debug build
+./gradlew assembleDebug
+
+# Install on connected device
+./gradlew installDebug
+
+# Unit tests
+./gradlew :app:testDebugUnitTest
+```
+
+## Tests
+
+`MeasurementRepositoryTest` pins the JSON schema and verifies round-trip correctness, ordering, editing, and deletion. The key test (`existing JSON from previous install loads correctly`) ensures that reinstalling a new version of the app does not corrupt data already saved on the device.

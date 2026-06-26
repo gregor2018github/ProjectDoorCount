@@ -48,5 +48,22 @@ class StatisticsViewModel(application: Application) : AndroidViewModel(applicati
         return counts.toList()
     }
 
+    // Returns the average fraction of gates occupied for each hour (null = no data that hour).
+    fun averageOccupancyRatePerHour(): List<Float?> {
+        val groups = Array(24) { mutableListOf<Float>() }
+        _measurements.value.forEach { m ->
+            val hour = LocalDateTime.parse(m.timestamp, DateTimeFormatter.ISO_LOCAL_DATE_TIME).hour
+            groups[hour].add(m.gates.count { it }.toFloat() / m.gates.size)
+        }
+        return groups.map { if (it.isEmpty()) null else it.average().toFloat() }
+    }
+
     val totalMeasurements: Int get() = _measurements.value.size
+
+    fun overallOccupancyStats(): Pair<Int, Int> {
+        val list = _measurements.value
+        val totalOccupied = list.sumOf { m -> m.gates.count { it } }
+        val totalPossible = list.size * 6
+        return totalOccupied to totalPossible
+    }
 }
