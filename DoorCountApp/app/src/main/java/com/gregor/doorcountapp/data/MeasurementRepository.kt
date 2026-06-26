@@ -5,10 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
 
-class MeasurementRepository(context: Context) {
+class MeasurementRepository(private val file: File) {
+    internal constructor(context: Context) : this(File(context.filesDir, "measurements.json"))
+
     private val gson = Gson()
     private val listType = object : TypeToken<List<Measurement>>() {}.type
-    private val file = File(context.filesDir, "measurements.json")
 
     fun load(): List<Measurement> {
         if (!file.exists()) return emptyList()
