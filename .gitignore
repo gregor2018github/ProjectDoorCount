@@ -10,7 +10,7 @@ DoorCountApp/.gradle/
 DoorCountApp/build/
 DoorCountApp/app/build/
 DoorCountApp/local.properties
-DoorCountApp/.idea/
+.idea/
 *.apk
 *.aab
 *.iml
