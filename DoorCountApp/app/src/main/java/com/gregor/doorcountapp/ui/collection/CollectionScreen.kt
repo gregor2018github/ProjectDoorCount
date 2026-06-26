@@ -70,37 +70,20 @@ fun CollectionScreen(
             }
         }
 
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                for (i in 0..2) {
-                    GateButton(
-                        gateNumber = i + 1,
-                        isActive = gateStates[i],
-                        onClick = { vm.toggle(i) },
-                        modifier = Modifier.weight(1f).aspectRatio(1f)
-                    )
-                }
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                for (i in 3..5) {
-                    GateButton(
-                        gateNumber = i + 1,
-                        isActive = gateStates[i],
-                        onClick = { vm.toggle(i) },
-                        modifier = Modifier.weight(1f).aspectRatio(1f)
-                    )
-                }
+            for (i in 0..5) {
+                GateButton(
+                    gateNumber = i + 1,
+                    isActive = gateStates[i],
+                    onClick = { vm.toggle(i) },
+                    modifier = Modifier.weight(1f).aspectRatio(1f)
+                )
             }
         }
 
